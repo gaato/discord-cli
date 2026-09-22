@@ -1,0 +1,14 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "gaato/discord-cli"
+
+// Values
+
+// Errors
+type UsageError
+
+// Types and methods
+type Command
+
+// Type aliases
+
+// Traits
