@@ -4,18 +4,29 @@ A native MoonBit CLI for Discord's bot REST API, with an agent skill in [SKILL.m
 
 ## Run
 
-With MoonBit's `moonx`, a native C toolchain, and Node on PATH (required by the Discord dependency's prebuild hook), moonx downloads and runs the module:
+This CLI requires a native C toolchain and Node on PATH (required by the Discord dependency's prebuild hook). `moonx` defaults to Wasm, so it requires an explicit native target:
 
 ```fish
 # Supply DISCORD_TOKEN through your environment or secret manager.
-moonx gaato/discord-cli --help
-moonx gaato/discord-cli me
-moonx gaato/discord-cli guilds
-moonx gaato/discord-cli channels 123456789012345678
-moonx gaato/discord-cli messages 234567890123456789 --limit 10
-moonx gaato/discord-cli send 234567890123456789 'Hello'
-moonx gaato/discord-cli api GET /users/@me
+moonx --target native gaato/discord-cli --help
+moonx --target native gaato/discord-cli me
+moonx --target native gaato/discord-cli guilds
+moonx --target native gaato/discord-cli channels 123456789012345678
+moonx --target native gaato/discord-cli messages 234567890123456789 --limit 10
+moonx --target native gaato/discord-cli send 234567890123456789 'Hello'
+moonx --target native gaato/discord-cli api GET /users/@me
 ```
+
+`moonx --target native` is deprecated in current MoonBit toolchains. If it is unavailable, build and run from source:
+
+```fish
+ghq get gaato/discord-cli
+cd ~/ghq/github.com/gaato/discord-cli
+moon update
+moon run --target native . -- --help
+```
+
+The module does not provide a prebuilt Wasm executable. Publishing to mooncakes does not by itself guarantee listing in the Wasm-oriented skills marketplace.
 
 `DISCORD_TOKEN` must be a bot token. Posting requires the user's explicit request and appropriate bot permissions. Each successful data command prints one pretty JSON document. Errors use stderr; exit codes are 0 (success/help), 1 (runtime/API failure), and 2 (usage/input/token missing).
 
