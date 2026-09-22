@@ -1,0 +1,4 @@
+{
+  "env": { "from_host": ["DISCORD_TOKEN"] },
+  "net": { "connect": ["discord.com:443"] }
+}

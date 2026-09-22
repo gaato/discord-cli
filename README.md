@@ -1,32 +1,21 @@
 # discord-cli
 
-A native MoonBit CLI for Discord's bot REST API, with an agent skill in [SKILL.md](SKILL.md). Reads identity, guilds, channels and messages, sends messages, and supports custom REST routes.
+A MoonBit CLI for Discord's bot REST API, with an agent skill in [SKILL.md](SKILL.md). Reads identity, guilds, channels and messages, sends messages, and supports custom REST routes.
 
 ## Run
 
-This CLI requires a native C toolchain and Node on PATH (required by the Discord dependency's prebuild hook). `moonx` defaults to Wasm, so it requires an explicit native target:
+Run the prebuilt linear-memory Wasm executable with MoonBit's `moonx`. No native compiler or Node is needed to run the published executable.
 
 ```fish
 # Supply DISCORD_TOKEN through your environment or secret manager.
-moonx --target native gaato/discord-cli --help
-moonx --target native gaato/discord-cli me
-moonx --target native gaato/discord-cli guilds
-moonx --target native gaato/discord-cli channels 123456789012345678
-moonx --target native gaato/discord-cli messages 234567890123456789 --limit 10
-moonx --target native gaato/discord-cli send 234567890123456789 'Hello'
-moonx --target native gaato/discord-cli api GET /users/@me
+moonx gaato/discord-cli@0.1.2 --help
+moonx gaato/discord-cli@0.1.2 me
+moonx gaato/discord-cli@0.1.2 guilds
+moonx gaato/discord-cli@0.1.2 channels 123456789012345678
+moonx gaato/discord-cli@0.1.2 messages 234567890123456789 --limit 10
+moonx gaato/discord-cli@0.1.2 send 234567890123456789 'Hello'
+moonx gaato/discord-cli@0.1.2 api GET /users/@me
 ```
-
-`moonx --target native` is deprecated in current MoonBit toolchains. If it is unavailable, build and run from source:
-
-```fish
-ghq get gaato/discord-cli
-cd ~/ghq/github.com/gaato/discord-cli
-moon update
-moon run --target native . -- --help
-```
-
-The module does not provide a prebuilt Wasm executable. Publishing to mooncakes does not by itself guarantee listing in the Wasm-oriented skills marketplace.
 
 `DISCORD_TOKEN` must be a bot token. Posting requires the user's explicit request and appropriate bot permissions. Each successful data command prints one pretty JSON document. Errors use stderr; exit codes are 0 (success/help), 1 (runtime/API failure), and 2 (usage/input/token missing).
 
@@ -45,11 +34,14 @@ IDs are unsigned 64-bit decimal strings. Messages are sorted newest first; `--af
 
 ## Develop
 
-Use `moon` on PATH with the version pinned in `moonbit-version`. Dependencies are declared in `moon.mod`. Only native is supported because the pinned `moonbitlang/async` library has no wasm backend.
+Use `moon` on PATH with the version pinned in `moonbit-version`. Source builds require Node for the Discord dependency's prebuild hook. Wasm is the default; native additionally requires a C toolchain. The hook does not download native libraries for Wasm.
 
 ```fish
 moon fmt
 moon info
+moon check --target wasm --deny-warn
+moon test --target wasm
+moon build --target wasm --release
 moon check --target native
 moon test --target native
 moon build --target native
@@ -57,3 +49,20 @@ moon run --target native . -- --help
 ```
 
 Tests run offline, including simulated REST success and 401 responses. The root package is the only executable. Licensed under Apache-2.0.
+
+## Restricted host access
+
+Save this as `discord-policy.json` (also included in the repository):
+
+```json
+{
+  "env": { "from_host": ["DISCORD_TOKEN"] },
+  "net": { "connect": ["discord.com:443"] }
+}
+```
+
+```fish
+moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.2 me
+```
+
+This optional moonrun policy permits the token and Discord HTTPS, denies filesystem access and process spawning, and allows help without a token. `--stdin` still reads standard input; shell redirection opens files outside Wasm. The policy flag is experimental. This executable requires moonrun host networking; browser, WASI, and wasm-gc runtimes are not supported.

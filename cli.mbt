@@ -1,7 +1,7 @@
 ///|
 /// Discord REST CLI for coding agents, built on `gaato/discord`.
 ///
-/// Run: DISCORD_TOKEN=... moonx --target native gaato/discord-cli <command> [args]
+/// Run: moonx gaato/discord-cli <command> [args] with DISCORD_TOKEN set.
 /// Every command prints one JSON document on stdout and exits 0. Failures
 /// print `error: ...` on stderr and exit 1; usage errors exit 2.
 const DEFAULT_MESSAGE_LIMIT : Int = 50
@@ -157,7 +157,7 @@ fn build_cli() -> @argparse.Command {
   @argparse.Command(
     "discord-cli",
     about="Discord REST CLI for coding agents. Reads the bot token from DISCORD_TOKEN or --token.",
-    version="0.1.1",
+    version="0.1.2",
     subcommand_required=true,
     options=[
       @argparse.OptionArg(

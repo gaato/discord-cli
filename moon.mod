@@ -1,6 +1,6 @@
 name = "gaato/discord-cli"
 
-version = "0.1.1"
+version = "0.1.2"
 
 readme = "README.md"
 
@@ -12,10 +12,10 @@ keywords = [ "discord", "cli", "skill", "agent" ]
 
 description = "Discord REST CLI for coding agents: read guilds, channels and messages, send messages, and call raw routes with a bot token. Built on gaato/discord."
 
-preferred_target = "native"
+preferred_target = "wasm"
 
 import {
-  "gaato/discord@0.4.2",
+  "gaato/discord@0.4.3",
   "moonbitlang/async@0.22.1",
   "moonbitlang/x@0.5.1",
 }
