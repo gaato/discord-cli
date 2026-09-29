@@ -8,13 +8,13 @@ Run the prebuilt linear-memory Wasm executable with MoonBit's `moonx`. No native
 
 ```fish
 # Supply DISCORD_TOKEN through your environment or secret manager.
-moonx gaato/discord-cli@0.1.2 --help
-moonx gaato/discord-cli@0.1.2 me
-moonx gaato/discord-cli@0.1.2 guilds
-moonx gaato/discord-cli@0.1.2 channels 123456789012345678
-moonx gaato/discord-cli@0.1.2 messages 234567890123456789 --limit 10
-moonx gaato/discord-cli@0.1.2 send 234567890123456789 'Hello'
-moonx gaato/discord-cli@0.1.2 api GET /users/@me
+moonx gaato/discord-cli@0.1.3 --help
+moonx gaato/discord-cli@0.1.3 me
+moonx gaato/discord-cli@0.1.3 guilds
+moonx gaato/discord-cli@0.1.3 channels 123456789012345678
+moonx gaato/discord-cli@0.1.3 messages 234567890123456789 --limit 10
+moonx gaato/discord-cli@0.1.3 send 234567890123456789 'Hello'
+moonx gaato/discord-cli@0.1.3 api GET /users/@me
 ```
 
 `DISCORD_TOKEN` must be a bot token. Posting requires the user's explicit request and appropriate bot permissions. Each successful data command prints one pretty JSON document. Errors use stderr; exit codes are 0 (success/help), 1 (runtime/API failure), and 2 (usage/input/token missing).
@@ -62,7 +62,7 @@ Save this as `discord-policy.json` (also included in the repository):
 ```
 
 ```fish
-moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.2 me
+moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.3 me
 ```
 
 This optional moonrun policy permits the token and Discord HTTPS, denies filesystem access and process spawning, and allows help without a token. `--stdin` still reads standard input; shell redirection opens files outside Wasm. The policy flag is experimental. This executable requires moonrun host networking; browser, WASI, and wasm-gc runtimes are not supported.

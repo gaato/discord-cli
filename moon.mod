@@ -1,6 +1,6 @@
 name = "gaato/discord-cli"
 
-version = "0.1.2"
+version = "0.1.3"
 
 readme = "README.md"
 
@@ -16,6 +16,7 @@ preferred_target = "wasm"
 
 import {
   "gaato/discord@0.6.0",
+  "gaato/http-async@0.1.2",
   "moonbitlang/async@0.22.4",
   "moonbitlang/x@0.5.5",
 }
