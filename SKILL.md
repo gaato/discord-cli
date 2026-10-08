@@ -1,21 +1,21 @@
 ---
 name: discord-cli
-description: Read Discord bot identity, guilds, channels, and messages, post messages, or call other Discord REST endpoints using moonx gaato/discord-cli@0.1.3. Requires DISCORD_TOKEN containing a bot token. Use for user-requested Discord REST tasks; do not use for personal-account automation, Gateway event streaming, voice, or actions outside the bot's permissions.
+description: Read Discord bot identity, guilds, channels, and messages, post messages, or call other Discord REST endpoints using moonx gaato/discord-cli@0.1.4. Requires DISCORD_TOKEN containing a bot token. Use for user-requested Discord REST tasks; do not use for personal-account automation, Gateway event streaming, voice, or actions outside the bot's permissions.
 ---
 
 # Discord REST
 
-Run `moonx gaato/discord-cli@0.1.3 <command>` with `DISCORD_TOKEN` already set. MoonBit's `moonx` downloads the prebuilt Wasm executable and runs it on moonrun; no native compiler or Node is needed. Prefer the environment over `--token TOKEN`, which can appear in process arguments. Never print or include the token in reports.
+Run `moonx gaato/discord-cli@0.1.4 <command>` with `DISCORD_TOKEN` already set. MoonBit's `moonx` downloads the prebuilt Wasm executable and runs it on moonrun; no native compiler or Node is needed. Prefer the environment over `--token TOKEN`, which can appear in process arguments. Never print or include the token in reports.
 
 ## Read
 
 ```fish
-moonx gaato/discord-cli@0.1.3 me
-moonx gaato/discord-cli@0.1.3 guilds
-moonx gaato/discord-cli@0.1.3 channels 123456789012345678
-moonx gaato/discord-cli@0.1.3 messages 234567890123456789
-moonx gaato/discord-cli@0.1.3 messages 234567890123456789 --limit 150 --before 345678901234567890
-moonx gaato/discord-cli@0.1.3 messages 234567890123456789 -n 20 --after 345678901234567890
+moonx gaato/discord-cli@0.1.4 me
+moonx gaato/discord-cli@0.1.4 guilds
+moonx gaato/discord-cli@0.1.4 channels 123456789012345678
+moonx gaato/discord-cli@0.1.4 messages 234567890123456789
+moonx gaato/discord-cli@0.1.4 messages 234567890123456789 --limit 150 --before 345678901234567890
+moonx gaato/discord-cli@0.1.4 messages 234567890123456789 -n 20 --after 345678901234567890
 ```
 
 Use returned IDs for subsequent calls. IDs are decimal strings; preserve them as strings. `guilds` follows all pages. `messages` defaults to 50, accepts any positive 32-bit integer limit, and fetches pages of at most 100 until the limit or end of history. Use either `--before` or `--after`, never both. Without a cursor it starts at the newest messages; `--before` walks backward, `--after` walks forward from the cursor. Returned messages are sorted newest first.
@@ -25,10 +25,10 @@ Use returned IDs for subsequent calls. IDs are decimal strings; preserve them as
 `send` is a write. Run it only when the user asked to post to the specified destination. Confirm the channel from available context before posting.
 
 ```fish
-moonx gaato/discord-cli@0.1.3 send 234567890123456789 'Requested update'
-moonx gaato/discord-cli@0.1.3 send 234567890123456789 'Reply text' --reply-to 345678901234567890
-moonx gaato/discord-cli@0.1.3 send 234567890123456789 --stdin < message.txt
-moonx gaato/discord-cli@0.1.3 send 234567890123456789 -- '--literal text'
+moonx gaato/discord-cli@0.1.4 send 234567890123456789 'Requested update'
+moonx gaato/discord-cli@0.1.4 send 234567890123456789 'Reply text' --reply-to 345678901234567890
+moonx gaato/discord-cli@0.1.4 send 234567890123456789 --stdin < message.txt
+moonx gaato/discord-cli@0.1.4 send 234567890123456789 -- '--literal text'
 ```
 
 Text arguments are joined with spaces. `--stdin` reads UTF-8 through EOF, preserves whitespace, and overrides text arguments. Empty or whitespace-only messages are rejected. User and role mentions can notify recipients; the dependency suppresses `@everyone` and `@here` by default. Use `api` with an explicit `allowed_mentions` body when precise mention control is needed.
@@ -38,9 +38,9 @@ Text arguments are joined with spaces. `--stdin` reads UTF-8 through EOF, preser
 `api` is the escape hatch for endpoints without a dedicated command. Paths start with `/` and are relative to Discord's `/api/v10`; do not pass a full URL or include `/api/v10` again. Quote paths containing query strings.
 
 ```fish
-moonx gaato/discord-cli@0.1.3 api GET /users/@me
-moonx gaato/discord-cli@0.1.3 api GET '/channels/234567890123456789/messages?limit=5'
-moonx gaato/discord-cli@0.1.3 api PATCH /channels/234567890123456789/messages/345678901234567890 --body '{"content":"Requested correction"}'
+moonx gaato/discord-cli@0.1.4 api GET /users/@me
+moonx gaato/discord-cli@0.1.4 api GET '/channels/234567890123456789/messages?limit=5'
+moonx gaato/discord-cli@0.1.4 api PATCH /channels/234567890123456789/messages/345678901234567890 --body '{"content":"Requested correction"}'
 ```
 
 Methods are case-insensitive: GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS. `--body` (or `-d`) must be JSON. Treat modifying API calls as writes requiring the user's request, just like `send`.
@@ -74,7 +74,7 @@ Save this as `discord-policy.json` (also included in the repository):
 ```
 
 ```fish
-moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.3 me
+moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.4 me
 ```
 
 This optional moonrun policy permits the token and Discord HTTPS, denies filesystem access and process spawning, and allows help without a token. `--stdin` still reads standard input; shell redirection opens files outside Wasm. The policy flag is experimental. This executable requires moonrun host networking; browser, WASI, and wasm-gc runtimes are not supported.

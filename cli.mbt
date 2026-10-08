@@ -157,7 +157,7 @@ fn build_cli() -> @argparse.Command {
   @argparse.Command(
     "discord-cli",
     about="Discord REST CLI for coding agents. Reads the bot token from DISCORD_TOKEN or --token.",
-    version="0.1.3",
+    version="0.1.4",
     subcommand_required=true,
     options=[
       @argparse.OptionArg(
