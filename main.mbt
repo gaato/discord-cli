@@ -1,9 +1,30 @@
 ///|
-async fn die(message : String, code~ : Int) -> Unit {
-  @stdio.stderr.write("error: " + message + "\n") catch {
+async fn exit_with(text : String, code~ : Int) -> Unit {
+  @stdio.stderr.write(text) catch {
     _ => ()
   }
   @sys.exit(code)
+}
+
+///|
+async fn die(message : String, code~ : Int) -> Unit {
+  exit_with("error: " + message + "\n", code~)
+}
+
+///|
+/// argparse parse failures are display-ready: they already start with
+/// `error:` and carry the usage text, so they are printed as they are.
+fn argparse_failure_text(message : String) -> String {
+  let text = if message.has_prefix("error:") {
+    message
+  } else {
+    "error: " + message
+  }
+  if text.has_suffix("\n") {
+    text
+  } else {
+    text + "\n"
+  }
 }
 
 ///|
@@ -18,7 +39,7 @@ fn bot_token(matches : @argparse.Matches) -> String raise UsageError {
 async fn main {
   let matches = build_cli().parse(env=@env.get_env_vars()) catch {
     err => {
-      die(err.to_string(), code=2)
+      exit_with(argparse_failure_text(err.to_string()), code=2)
       return
     }
   }

@@ -330,3 +330,21 @@ async test "guilds does not silently truncate at 1000 offline" {
   assert_eq(items.length(), 1001)
   assert_eq(calls.val, 6)
 }
+
+///|
+test "argparse failures are printed with one error prefix" {
+  let message = try
+    build_cli().parse(argv=["messages"], env={}) |> ignore
+  catch {
+    err => err.to_string()
+  } noraise {
+    _ => fail("expected a parse failure")
+  }
+  let text = argparse_failure_text(message)
+  assert_true(text.has_prefix("error: '"))
+  assert_false(text.contains("error: error:"))
+  assert_true(text.contains("Usage: discord-cli messages"))
+  assert_true(text.has_suffix("\n"))
+  assert_false(text.has_suffix("\n\n"))
+  assert_eq(argparse_failure_text("bad spec"), "error: bad spec\n")
+}
