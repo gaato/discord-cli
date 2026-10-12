@@ -5,7 +5,7 @@ enum Command {
   Channels(@model.GuildId)
   Messages(
     @model.ChannelId,
-    limit~ : Int,
+    limit~ : Int32,
     before~ : @model.MessageId?,
     after~ : @model.MessageId?
   )

@@ -4,10 +4,10 @@
 /// Run: moonx gaato/discord-cli <command> [args] with DISCORD_TOKEN set.
 /// Every command prints one JSON document on stdout and exits 0. Failures
 /// print `error: ...` on stderr and exit 1; usage errors exit 2.
-const DEFAULT_MESSAGE_LIMIT : Int = 50
+const DEFAULT_MESSAGE_LIMIT : Int32 = 50
 
 ///|
-const MAX_PAGE_SIZE : Int = 100
+const MAX_PAGE_SIZE : Int32 = 100
 
 ///|
 suberror UsageError {

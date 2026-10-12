@@ -1,5 +1,5 @@
 ///|
-async fn exit_with(text : String, code~ : Int) -> Unit {
+async fn exit_with(text : String, code~ : Int32) -> Unit {
   @stdio.stderr.write(text) catch {
     _ => ()
   }
@@ -7,7 +7,7 @@ async fn exit_with(text : String, code~ : Int) -> Unit {
 }
 
 ///|
-async fn die(message : String, code~ : Int) -> Unit {
+async fn die(message : String, code~ : Int32) -> Unit {
   exit_with("error: " + message + "\n", code~)
 }
 
