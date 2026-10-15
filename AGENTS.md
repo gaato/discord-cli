@@ -1,6 +1,6 @@
 # Development
 
-- Use `moon` on PATH and the toolchain pinned by `moonbit-version`. Node must be on PATH for the Discord dependency's prebuild hook.
+- Use `moon` on PATH and the toolchain pinned by `moonbit-version`.
 - The root is the only executable package. Keep CLI parsing in `cli.mbt`, REST execution in `commands.mbt`, and process/output handling in `main.mbt`.
 - Wasm on moonrun is the default; native is also supported. Run `moon check`, `moon test`, and `moon build` for both `--target wasm` and `--target native`. Do not claim browser, WASI, or wasm-gc support.
 - Before handoff run `moon fmt`, `moon info`, then the check/test/build commands above. Review the generated `pkg.generated.mbti`; do not edit it by hand.

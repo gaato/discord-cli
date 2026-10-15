@@ -34,7 +34,7 @@ IDs are unsigned 64-bit decimal strings. Messages are sorted newest first; `--af
 
 ## Develop
 
-Use `moon` on PATH with the version pinned in `moonbit-version`. Source builds require Node for the Discord dependency's prebuild hook. Wasm is the default; native additionally requires a C toolchain. The hook does not download native libraries for Wasm.
+Use `moon` on PATH with the version pinned in `moonbit-version`. Wasm is the default; native additionally requires a C toolchain.
 
 ```fish
 moon fmt
