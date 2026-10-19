@@ -23,9 +23,9 @@ fn describe_error(err : Error) -> String {
       "rate limited (global=\{global}); retry after \{retry_after_ms} ms"
     @dhttp.DiscordHttpError::Deserialize(message~) =>
       "could not decode the response: \{message}"
-    @dhttp.DiscordHttpError::Transport(message~) =>
+    @dhttp.DiscordHttpError::Transport(message~, ..) =>
       "transport failure: \{message}"
-    @dhttp.DiscordHttpError::Timeout(timeout_ms~) =>
+    @dhttp.DiscordHttpError::Timeout(timeout_ms~, ..) =>
       "request timed out after \{timeout_ms} ms"
     @dhttp.DiscordHttpError::Validation(message~) =>
       "invalid request: \{message}"

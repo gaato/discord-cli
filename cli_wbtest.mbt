@@ -215,8 +215,8 @@ test "Discord error messages" {
       "rate limited (global=true); retry after 1234 ms",
     ),
     (Deserialize(message="bad JSON"), "could not decode the response: bad JSON"),
-    (Transport(message="offline"), "transport failure: offline"),
-    (Timeout(timeout_ms=30000), "request timed out after 30000 ms"),
+    (Transport(phase=Dial, message="offline"), "transport failure: offline"),
+    (Timeout(phase=Head, timeout_ms=30000), "request timed out after 30000 ms"),
     (Validation(message="bad content"), "invalid request: bad content"),
   ]
   for (err, expected) in cases {

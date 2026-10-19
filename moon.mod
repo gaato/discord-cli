@@ -15,7 +15,7 @@ description = "Discord REST CLI for coding agents: read guilds, channels and mes
 preferred_target = "wasm"
 
 import {
-  "gaato/discord@0.8.0",
+  "gaato/discord@0.11.0",
   "moonbitlang/async@0.22.5",
   "moonbitlang/x@0.5.5",
 }
