@@ -9,3 +9,4 @@
 - Successful data commands print one JSON document on stdout. Help/version are text. Runtime errors exit 1; usage/input errors exit 2; stderr errors start with `error: `.
 - Keep SKILL.md concise and directed at agents, and keep its examples and README.md consistent with parser behavior. Interactive examples use fish syntax.
 - Never commit secrets. Do not publish or operate VCS unless the user explicitly requests it. Sending Discord messages or running modifying REST calls requires the user's request.
+- A release changes the version in `moon.mod`, the `version=` of the command in `cli.mbt`, and the `@<version>` in README.md and SKILL.md together: `--version` prints the one in `cli.mbt`, and 0.1.7 shipped printing 0.1.6 because only `moon.mod` moved.
