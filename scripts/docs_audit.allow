@@ -1,0 +1,3 @@
+# Markdown links and fences that the docs audit accepts although its rules
+# reject them. Each entry is `<file> <link> # reason`.
+README.md overview # the root package is the executable; moon warns that main packages will stop compiling `.mbt.md` files, and this README has no MoonBit code to check

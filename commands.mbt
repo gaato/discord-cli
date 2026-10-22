@@ -1,5 +1,5 @@
 ///|
-enum Command {
+priv enum Command {
   Me
   Guilds
   Channels(@model.GuildId)

@@ -1,23 +1,35 @@
-# discord-cli
+# gaato/discord-cli
 
-A MoonBit CLI for Discord's bot REST API, with an agent skill in [SKILL.md](SKILL.md). Reads identity, guilds, channels and messages, sends messages, and supports custom REST routes.
+A command-line tool for Discord's bot REST API, written for coding agents
+and built on [`gaato/discord`](https://mooncakes.io/docs/gaato/discord). It
+reads the bot's identity, guilds, channels, and messages, sends messages, and
+calls any other REST route, printing JSON. It comes with an agent skill that
+tells an agent how to use it.
+
+> **Status**: unofficial; not affiliated with Discord.
+
+## Install
+
+Run the prebuilt Wasm executable with MoonBit's `moonx`, which downloads the
+latest release and runs it on moonrun. No native compiler or Node is needed.
+
+```sh
+moonx gaato/discord-cli --help
+```
 
 ## Run
 
-Run the prebuilt linear-memory Wasm executable with MoonBit's `moonx`. No native compiler or Node is needed to run the published executable.
+Supply a bot token as `DISCORD_TOKEN` through your environment or secret
+manager, then:
 
-```fish
-# Supply DISCORD_TOKEN through your environment or secret manager.
-moonx gaato/discord-cli@0.1.8 --help
-moonx gaato/discord-cli@0.1.8 me
-moonx gaato/discord-cli@0.1.8 guilds
-moonx gaato/discord-cli@0.1.8 channels 123456789012345678
-moonx gaato/discord-cli@0.1.8 messages 234567890123456789 --limit 10
-moonx gaato/discord-cli@0.1.8 send 234567890123456789 'Hello'
-moonx gaato/discord-cli@0.1.8 api GET /users/@me
+```sh
+moonx gaato/discord-cli me
+moonx gaato/discord-cli guilds
+moonx gaato/discord-cli channels 123456789012345678
+moonx gaato/discord-cli messages 234567890123456789 --limit 10
+moonx gaato/discord-cli send 234567890123456789 'Hello'
+moonx gaato/discord-cli api GET /users/@me
 ```
-
-`DISCORD_TOKEN` must be a bot token. Posting requires the user's explicit request and appropriate bot permissions. Each successful data command prints one pretty JSON document. Errors use stderr; exit codes are 0 (success/help), 1 (runtime/API failure), and 2 (usage/input/token missing).
 
 | Option | Applies to | Meaning |
 | --- | --- | --- |
@@ -30,29 +42,28 @@ moonx gaato/discord-cli@0.1.8 api GET /users/@me
 | `--reply-to ID` | `send CHANNEL_ID [text...]` | Reply to a message |
 | `--body JSON`, `-d JSON` | `api METHOD PATH` | JSON body; path relative to `/api/v10` |
 
-IDs are unsigned 64-bit decimal strings. Messages are sorted newest first; `--after` fetches forward from its cursor. `guilds` fetches every page. See the skill for output fields, write guidance, and rate-limit handling.
+IDs are unsigned 64-bit decimal strings. Messages are sorted newest first;
+`--after` fetches forward from its cursor. `guilds` fetches every page.
 
-## Develop
+## Output and exit codes
 
-Use `moon` on PATH with the version pinned in `moonbit-version`. Wasm is the default; native additionally requires a C toolchain.
+Each successful data command prints one pretty JSON document on stdout;
+`--help` and `--version` print text. Errors go to stderr as `error: ...`.
+The exit code is 0 for success and help, 1 for a Discord API, network, or
+other runtime failure, and 2 for invalid arguments, a missing token, or an
+empty message.
 
-```fish
-moon fmt
-moon info
-moon check --target wasm --deny-warn
-moon test --target wasm
-moon build --target wasm --release
-moon check --target native
-moon test --target native
-moon build --target native
-moon run --target native . -- --help
-```
+## Tokens and writes
 
-Tests run offline, including simulated REST success and 401 responses. The root package is the only executable. Licensed under Apache-2.0.
+`DISCORD_TOKEN` must be a bot token, and the bot needs the permissions for
+what it reads or posts. `send` and modifying `api` calls act as the bot, so
+an agent should run them only when the user asked.
 
 ## Restricted host access
 
-Save this as `discord-policy.json` (also included in the repository):
+An optional moonrun policy permits only the token and Discord HTTPS, and
+denies filesystem access and process spawning. Save this as
+`discord-policy.json`:
 
 ```json
 {
@@ -61,8 +72,29 @@ Save this as `discord-policy.json` (also included in the repository):
 }
 ```
 
-```fish
-moonx --experimental-policy discord-policy.json gaato/discord-cli@0.1.8 me
+```sh
+moonx --experimental-policy discord-policy.json gaato/discord-cli me
 ```
 
-This optional moonrun policy permits the token and Discord HTTPS, denies filesystem access and process spawning, and allows help without a token. `--stdin` still reads standard input; shell redirection opens files outside Wasm. The policy flag is experimental. This executable requires moonrun host networking; browser, WASI, and wasm-gc runtimes are not supported.
+Help works without a token. `--stdin` still reads standard input, and shell
+redirection opens files outside Wasm. The policy flag is experimental.
+
+## Targets
+
+The executable runs on moonrun, which provides its networking; browser,
+WASI, and wasm-gc runtimes are not supported. It also builds for native.
+
+## Agent skill
+
+The [skill](https://github.com/gaato/discord-cli/blob/main/SKILL.md) covers
+each command's output fields, when to post, and how to handle rate limits.
+
+## Links
+
+- [Changelog](https://github.com/gaato/discord-cli/blob/main/CHANGELOG.md)
+- [Repository](https://github.com/gaato/discord-cli)
+- [`gaato/discord`](https://github.com/gaato/discord.mbt), the library it is built on
+
+## License
+
+Apache-2.0

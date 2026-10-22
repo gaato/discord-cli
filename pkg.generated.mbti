@@ -4,10 +4,8 @@ package "gaato/discord-cli"
 // Values
 
 // Errors
-type UsageError
 
 // Types and methods
-type Command
 
 // Type aliases
 

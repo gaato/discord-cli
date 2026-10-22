@@ -1,0 +1,11 @@
+# Packaging rules for gaato/discord-cli. This file replaces .gitignore for
+# the package, so the build and dependency directories are repeated here.
+_build/
+target/
+.mooncakes/
+.repos/
+.env
+node_modules/
+# Repository-only files: agent instructions and the docs audit.
+AGENTS.md
+scripts/

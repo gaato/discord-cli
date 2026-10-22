@@ -10,7 +10,7 @@ const DEFAULT_MESSAGE_LIMIT : Int32 = 50
 const MAX_PAGE_SIZE : Int32 = 100
 
 ///|
-suberror UsageError {
+priv suberror UsageError {
   UsageError(String)
 }
 
