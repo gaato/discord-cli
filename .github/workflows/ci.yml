@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    container:
+      # The toolchain moonbit-version pins, with "+" spelled "-" in the tag.
+      image: ghcr.io/gaato/moonbit:0.10.16-b1a0e846e
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Trust the workspace (container runs as a different user)
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Toolchain versions
+        run: |
+          moon version --all
+          # The image tag and moonbit-version must name the same toolchain.
+          moon version --all | grep -F -- "$(cat moonbit-version)"
+
+      - name: Registry index
+        run: moon update
+
+      - name: Gates
+        run: scripts/gates.sh

@@ -13,18 +13,7 @@
 
 ## Checks
 
-```sh
-moon fmt
-moon info
-moon check --target wasm --deny-warn
-moon test --target wasm
-moon build --target wasm --release
-moon check --target native --deny-warn
-moon test --target native
-moon build --target native
-moon run --target native . -- --help
-moon run scripts/docs_audit.mbtx
-```
+Run `moon fmt`, then `scripts/gates.sh`. CI and the toolchain canary (`.github/workflows/`) run the same script, so the checks cannot drift between them; add a check there, not here. In CI it also fails when `moon info` changes a committed `pkg.generated.mbti`.
 
 ## Documentation
 

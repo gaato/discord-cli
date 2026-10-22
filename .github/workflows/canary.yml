@@ -1,0 +1,16 @@
+name: Canary
+
+on:
+  schedule:
+    # 07:27 JST, after gaato/moonbit-docker rebuilds the latest and nightly images.
+    - cron: "27 22 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  canary:
+    uses: gaato/.github/.github/workflows/moonbit-canary.yml@main
+    with:
+      gates: scripts/gates.sh

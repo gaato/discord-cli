@@ -6,6 +6,6 @@ target/
 .repos/
 .env
 node_modules/
-# Repository-only files: agent instructions and the docs audit.
+# Repository-only files: agent instructions, the docs audit and the gates.
 AGENTS.md
 scripts/
