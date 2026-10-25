@@ -66,7 +66,7 @@ fn first_value(
 }
 
 ///|
-fn parse_method(raw : String) -> @ahttp.RequestMethod raise UsageError {
+fn parse_method(raw : String) -> @dhttp.RequestMethod raise UsageError {
   match raw.to_upper() {
     "GET" => Get
     "POST" => Post
@@ -157,7 +157,7 @@ fn build_cli() -> @argparse.Command {
   @argparse.Command(
     "discord-cli",
     about="Discord REST CLI for coding agents. Reads the bot token from DISCORD_TOKEN or --token.",
-    version="0.1.8",
+    version="0.2.0",
     subcommand_required=true,
     options=[
       @argparse.OptionArg(

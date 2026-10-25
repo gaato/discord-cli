@@ -1,0 +1,6 @@
+members = [
+  ".",
+  "../discord.mbt/discord",
+  "../mttp/mttp",
+  "../mttp/mttp-net",
+]

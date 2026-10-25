@@ -9,3 +9,4 @@ node_modules/
 # Repository-only files: agent instructions, the docs audit and the gates.
 AGENTS.md
 scripts/
+moon.work
