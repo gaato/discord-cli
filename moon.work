@@ -1,6 +1,6 @@
 members = [
   ".",
-  "../discord-migration/discord",
+  "../discord.mbt/discord",
   "../mttp/mttp",
   "../mttp/mttp-net",
 ]
