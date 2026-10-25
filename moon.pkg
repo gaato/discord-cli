@@ -2,7 +2,6 @@ import {
   "gaato/discord/model",
   "gaato/discord/http" @dhttp,
   "moonbitlang/async",
-  "moonbitlang/async/http" @ahttp,
   "moonbitlang/async/stdio",
   "moonbitlang/core/argparse",
   "moonbitlang/core/env",

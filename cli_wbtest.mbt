@@ -89,7 +89,7 @@ test "send joins text supports reply and stdin takes precedence" {
 test "api methods body and relative path" {
   for
     (raw, expected) in [
-      ("get", @ahttp.RequestMethod::Get),
+      ("get", @dhttp.RequestMethod::Get),
       ("POST", Post),
       ("pUt", Put),
       ("patch", Patch),

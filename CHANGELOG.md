@@ -7,6 +7,13 @@ All notable changes to this project are documented here. The format follows
 
 ### Changed
 
+- **Unreleased 0.2 integration with Discord 0.14 and mttp.** HTTP method
+  parsing uses Discord's exported method type instead of importing the old
+  runtime HTTP type. Commands, JSON output and offline dispatch semantics
+  are retained. The manifest and `--version` both reserve 0.2.0; no package
+  has been published. `moon.work` validates the sibling migration workspaces
+  until those dependencies are released.
+
 - **The README has sections for running, output, tokens, host access and
   targets.** The README and the agent skill run `moonx gaato/discord-cli`
   without a version, which takes the latest release, and write shell
