@@ -344,7 +344,7 @@ test "argparse failures are printed with one error prefix" {
   assert_true(text.has_prefix("error: '"))
   assert_false(text.contains("error: error:"))
   assert_true(text.contains("Usage: discord-cli messages"))
-  assert_true(text.has_suffix("\n"))
-  assert_false(text.has_suffix("\n\n"))
-  assert_eq(argparse_failure_text("bad spec"), "error: bad spec\n")
+  assert_false(text.has_suffix("\n"))
+  assert_eq(argparse_failure_text("bad spec"), "error: bad spec")
+  assert_eq(argparse_failure_text("error: two\n"), "error: two")
 }

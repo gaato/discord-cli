@@ -17,5 +17,4 @@ preferred_target = "wasm"
 import {
   "gaato/discord@0.13.0",
   "moonbitlang/async@0.22.5",
-  "moonbitlang/x@0.5.6",
 }

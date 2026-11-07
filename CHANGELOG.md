@@ -13,6 +13,9 @@ All notable changes to this project are documented here. The format follows
   examples for `sh`. Development notes moved out of the published README.
 - The internal `Command` and `UsageError` types are private; they were never
   usable from outside the executable.
+- Errors are printed and the process exits through core (`eprintln`,
+  `@env.exit`), so the command no longer depends on `moonbitlang/x`. Output
+  and exit codes are unchanged.
 
 ## [0.1.8] - 2026-10-22
 
