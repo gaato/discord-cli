@@ -3,10 +3,13 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [Unreleased]
+## [0.2.0]
 
 ### Changed
 
+- Built on `gaato/discord` 0.15.0 and its mttp HTTP stack, using
+  `moonbitlang/core/async` instead of `moonbitlang/async`. Commands, JSON
+  output, exit codes, and the default Wasm target are unchanged.
 - **The README has sections for running, output, tokens, host access and
   targets.** The README and the agent skill run `moonx gaato/discord-cli`
   without a version, which takes the latest release, and write shell

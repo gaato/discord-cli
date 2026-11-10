@@ -22,6 +22,15 @@ fn validate_content(content : String) -> String raise UsageError {
 }
 
 ///|
+fn stdin_content(data : Bytes) -> String raise UsageError {
+  validate_content(
+    @utf8.decode(data) catch {
+      _ => raise UsageError("stdin is not valid UTF-8")
+    },
+  )
+}
+
+///|
 fn[T : ToJson] to_json_array(items : Array[T]) -> Json {
   Json::array(items.map(item => item.to_json()))
 }
@@ -53,14 +62,7 @@ async fn run(client : @dhttp.Client, command : Command) -> Json {
     Send(id, content~, reply_to~) => {
       let content = match content {
         Some(text) => text
-        None => {
-          let data = @stdio.stdin.read_all()
-          validate_content(
-            data.text() catch {
-              _ => raise UsageError("stdin is not valid UTF-8")
-            },
-          )
-        }
+        None => stdin_content(@stdio.stdin.read_all())
       }
       client.channel_ref(id).send(content~, reply_to?).to_json()
     }

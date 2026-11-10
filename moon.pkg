@@ -1,11 +1,11 @@
 import {
   "gaato/discord/model",
   "gaato/discord/http" @dhttp,
-  "moonbitlang/async",
-  "moonbitlang/async/http" @ahttp,
-  "moonbitlang/async/stdio",
+  "moonbitlang/core/async",
+  "moonbitlang/core/async/stdio",
   "moonbitlang/core/argparse",
   "moonbitlang/core/env",
+  "moonbitlang/core/encoding/utf8",
   "moonbitlang/core/json",
   "moonbitlang/core/string",
 }
@@ -13,3 +13,10 @@ import {
 supported_targets = "native + wasm"
 
 pkgtype(kind: "executable")
+
+options(
+  "allow-experimental-packages": [
+    "moonbitlang/core/async",
+    "moonbitlang/core/async/stdio",
+  ],
+)

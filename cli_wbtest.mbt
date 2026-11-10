@@ -86,10 +86,33 @@ test "send joins text supports reply and stdin takes precedence" {
 }
 
 ///|
+test "stdin content preserves UTF-8 and whitespace and rejects invalid input" {
+  assert_eq(stdin_content(b" line\n"), " line\n")
+  assert_eq(
+    stdin_content(@utf8.encode(" こんにちは 👋\r\n")),
+    " こんにちは 👋\r\n",
+  )
+  assert_eq(stdin_content(b"\xef\xbb\xbfhello"), "\uFEFFhello")
+  for
+    (data, expected) in [
+      (b"\xff", "stdin is not valid UTF-8"),
+      (b"\xe3\x81", "stdin is not valid UTF-8"),
+      (b"", "refusing to send an empty message"),
+      (b" \n\r\t", "refusing to send an empty message"),
+    ] {
+    try stdin_content(data) catch {
+      UsageError(message) => assert_eq(message, expected)
+    } noraise {
+      _ => fail("expected stdin usage error")
+    }
+  }
+}
+
+///|
 test "api methods body and relative path" {
   for
     (raw, expected) in [
-      ("get", @ahttp.RequestMethod::Get),
+      ("get", @dhttp.Method::Get),
       ("POST", Post),
       ("pUt", Put),
       ("patch", Patch),

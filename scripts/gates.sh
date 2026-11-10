@@ -6,7 +6,9 @@ cd "$(dirname "$0")/.."
 
 run() { echo "+ $*"; "$@"; }
 
-run moon fmt --check
+# Check this module's only package; workspace-wide formatting also strips
+# the markers from temporary moon.work files and checks dependency sources.
+run moon fmt --check .
 run moon check --target wasm --deny-warn
 run moon test --target wasm
 run moon build --target wasm --release
