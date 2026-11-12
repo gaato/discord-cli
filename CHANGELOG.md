@@ -3,6 +3,24 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.2.2] - 2026-11-12
+
+### Changed
+
+- Built on `gaato/discord` 0.17.0, whose HTTP stack is now `gaato/mttp_core`
+  0.1.0 and `gaato/mttp` 0.3.0 (the mttp modules were renamed: the HTTP
+  library without I/O is `gaato/mttp_core`, and the async client took the
+  name `gaato/mttp`). Commands, JSON output and exit codes are unchanged.
+- The REST User-Agent names `gaato/discord` 0.17.0.
+
+### Fixed
+
+- Fixes in the HTTP client come with the update: a pooled connection is
+  checked before it is reused, a request whose first write on a reused
+  connection fails before anything was sent is retried on a new connection,
+  and a request with `Expect: 100-continue` waits for the `100` response
+  before sending its body.
+
 ## [0.2.1] - 2026-11-12
 
 ### Changed
