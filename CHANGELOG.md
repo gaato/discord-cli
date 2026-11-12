@@ -3,6 +3,20 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- Built on `gaato/discord` 0.16.0, whose HTTP stack is now `gaato/mttp` 0.2.0
+  and `gaato/mttp_async` 0.1.0 in place of `gaato/http` and
+  `gaato/http-async`. Commands, JSON output and exit codes are unchanged.
+- **Redirects are followed.** A 301, 302, 303, 307 or 308 response is
+  followed up to 10 hops within one request; `Authorization` is not sent on
+  to another origin, and a redirect from `https` to `http` is refused. `api`
+  used to print the redirect response's own body as a successful result; a
+  redirect that cannot be followed now fails as a transport error (exit 1).
+- The REST User-Agent names `gaato/discord` 0.16.0.
+
 ## [0.2.0] - 2026-11-10
 
 ### Changed
