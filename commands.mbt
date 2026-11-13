@@ -1,15 +1,15 @@
 ///|
+/// Short names that keep `Command::Messages` on one line: formatters before
+/// and after MoonBit 0.10.20 disagree on a trailing comma after a long one.
+using @model {type ChannelId, type GuildId, type MessageId}
+
+///|
 priv enum Command {
   Me
   Guilds
-  Channels(@model.GuildId)
-  Messages(
-    @model.ChannelId,
-    limit~ : Int32,
-    before~ : @model.MessageId?,
-    after~ : @model.MessageId?
-  )
-  Send(@model.ChannelId, content~ : String?, reply_to~ : @model.MessageId?)
+  Channels(GuildId)
+  Messages(ChannelId, limit~ : Int32, before~ : MessageId?, after~ : MessageId?)
+  Send(ChannelId, content~ : String?, reply_to~ : MessageId?)
   Api(@dhttp.Route, Json?)
 }
 
