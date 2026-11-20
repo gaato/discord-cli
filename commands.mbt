@@ -56,7 +56,7 @@ async fn run(client : @dhttp.Client, command : Command) -> Json {
         .channel_ref(id)
         .messages(before?, after?, page_size=limit.min(MAX_PAGE_SIZE))
         .collect(max=limit)
-      messages.sort_by((a, b) => b.id.compare(a.id))
+      messages.sort_by((a, b) => Compare::compare(b.id, a.id))
       to_json_array(messages)
     }
     Send(id, content~, reply_to~) => {

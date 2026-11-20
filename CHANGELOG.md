@@ -3,6 +3,15 @@
 All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [Unreleased]
+
+### Changed
+
+- Built with MoonBit 0.10.21 and `gaato/discord` 0.19.0, which uses
+  `gaato/mttp` 0.5.0 and `gaato/mttp_core` 0.3.1 for REST. The REST
+  User-Agent now identifies `gaato/discord` 0.19.0. Transport errors can
+  identify a TLS peer closing without `close_notify`.
+
 ## [0.2.2] - 2026-11-12
 
 ### Changed
