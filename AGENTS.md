@@ -22,3 +22,24 @@ Run `moon fmt`, then `scripts/gates.sh`. CI and the toolchain canary (`.github/w
 - Links in published files are absolute URLs, because mooncakes.io serves them away from the repository. Files only the repository needs go in `.moonignore`, which also tells the docs audit that they are not published. SKILL.md stays published: skills.mooncakes.io reads it from the package.
 - Run `moon run scripts/docs_audit.mbtx` after changing docs or declarations. `scripts/docs_audit.mbtx` is shared by every gaato MoonBit repository: copy it from gaato/discord.mbt rather than editing it here, and keep this repository's exceptions in `scripts/docs_audit.json` and `scripts/docs_audit.allow`.
 - Record user-visible changes under `## [Unreleased]` in `CHANGELOG.md`; it is the history the README links to.
+- A module README has two readers: a person deciding from the first screen
+  on mooncakes.io, and a coding agent that reads the raw file in a user's
+  `.mooncakes/` and copies its examples. So the first example runs as copied
+  (Install adds every module it uses, and the imports are shown), and what a
+  caller cannot read off the code is written out: defaults and limits as a
+  table (setting, default, what happens past it), errors as a table (kind,
+  when, what the caller does), and what the module deliberately does not do,
+  because an agent invents what a README leaves out.
+- Give a reason in the README only when it changes how a caller writes code,
+  such as a setting with no default or a check that cannot be turned off;
+  other rationale goes to `docs/`. Overviews and design discussion cost an
+  agent context without changing what it writes.
+- Keep facts that go stale out of the README: upstream and toolchain
+  versions, counts of cases or files, dates, "now", "latest", "not yet". Put
+  them in a ledger, the CHANGELOG or a benchmark page and link there; a reader
+  applies a stale fact without noticing it is stale.
+- Name sections and terms as the other gaato modules do (Install, Usage,
+  Limits and defaults, Errors, Not here, Checked against, Links, License), so
+  a reader who learned one module reads the next one correctly.
+- Write nothing addressed to an AI in a README: an agent reading a
+  dependency's README would take it as an instruction.
