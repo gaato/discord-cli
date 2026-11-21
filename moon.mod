@@ -1,6 +1,6 @@
 name = "gaato/discord-cli"
 
-version = "0.2.2"
+version = "0.2.3"
 
 readme = "README.md"
 
@@ -15,5 +15,5 @@ description = "Discord REST CLI for coding agents: read guilds, channels and mes
 preferred_target = "wasm"
 
 import {
-  "gaato/discord@0.19.0",
+  "gaato/discord@0.19.1",
 }

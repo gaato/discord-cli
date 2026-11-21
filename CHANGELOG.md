@@ -5,8 +5,12 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-11-21
+
 ### Changed
 
+- **Depends on gaato/discord 0.19.1**, which uses gaato/mttp 0.5.1 and the codecs released the same day; the REST User-Agent names discord 0.19.1.
+- **The README is rewritten**: what each command prints, the exit codes, restricted host access and the agent skill; a Japanese translation is in README.ja.md.
 - Built with MoonBit 0.10.21 and `gaato/discord` 0.19.0, which uses
   `gaato/mttp` 0.5.0 and `gaato/mttp_core` 0.3.1 for REST. The REST
   User-Agent now identifies `gaato/discord` 0.19.0. Transport errors can

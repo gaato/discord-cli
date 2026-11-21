@@ -6,6 +6,13 @@ cd "$(dirname "$0")/.."
 
 run() { echo "+ $*"; "$@"; }
 
+# --version prints the version in moon.mod.
+version="$(sed -nE 's/^version = "(.*)"$/\1/p' moon.mod)"
+grep -Fq "let version : String = \"$version\"" cli.mbt || {
+  echo "cli.mbt: version does not equal $version from moon.mod" >&2
+  exit 1
+}
+
 # Check this module's only package; workspace-wide formatting also strips
 # the markers from temporary moon.work files and checks dependency sources.
 run moon fmt --check .

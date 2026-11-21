@@ -9,7 +9,7 @@
 - Successful data commands print one JSON document on stdout. Help/version are text. Runtime errors exit 1; usage/input errors exit 2; stderr errors start with `error: `.
 - Keep SKILL.md concise and directed at agents, and keep its examples and the README consistent with parser behavior. Write shell examples in both as `sh`, not fish: they are public documents that people and agents paste into whatever shell they use, so POSIX syntax is the one that works everywhere.
 - Never commit secrets. Do not publish or operate VCS unless the user explicitly requests it. Sending Discord messages or running modifying REST calls requires the user's request.
-- A release changes the version in `moon.mod` and the `version=` of the command in `cli.mbt` together, and turns `## [Unreleased]` in `CHANGELOG.md` into the version heading: `--version` prints the one in `cli.mbt`, and 0.1.7 shipped printing 0.1.6 because only `moon.mod` moved. The README and SKILL.md run `moonx gaato/discord-cli` without a version, which takes the latest release, so they do not change.
+- A release changes the version in `moon.mod` and `version` in `cli.mbt` together, and turns `## [Unreleased]` in `CHANGELOG.md` into the version heading: `--version` prints the one in `cli.mbt`, and 0.1.7 shipped printing 0.1.6 because only `moon.mod` moved; `scripts/gates.sh` now refuses the two when they differ. The README and SKILL.md run `moonx gaato/discord-cli` without a version, which takes the latest release, so they do not change.
 
 ## Checks
 

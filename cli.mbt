@@ -10,6 +10,11 @@ const DEFAULT_MESSAGE_LIMIT : Int32 = 50
 const MAX_PAGE_SIZE : Int32 = 100
 
 ///|
+/// The version `--version` prints: the one in moon.mod, which
+/// scripts/gates.sh checks.
+let version : String = "0.2.3"
+
+///|
 priv suberror UsageError {
   UsageError(String)
 }
@@ -157,7 +162,7 @@ fn build_cli() -> @argparse.Command {
   @argparse.Command(
     "discord-cli",
     about="Discord REST CLI for coding agents. Reads the bot token from DISCORD_TOKEN or --token.",
-    version="0.2.2",
+    version~,
     subcommand_required=true,
     options=[
       @argparse.OptionArg(
