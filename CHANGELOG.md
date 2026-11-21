@@ -5,6 +5,13 @@ All notable changes to this project are documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.4] - 2026-11-21
+
+### Changed
+
+- Built with MoonBit 0.10.22 and `gaato/discord` 0.19.2. `gaato/discord`
+  0.19.1, which 0.2.3 is built with, does not build on MoonBit 0.10.22.
+
 ## [0.2.3] - 2026-11-21
 
 ### Changed

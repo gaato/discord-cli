@@ -12,7 +12,7 @@ const MAX_PAGE_SIZE : Int32 = 100
 ///|
 /// The version `--version` prints: the one in moon.mod, which
 /// scripts/gates.sh checks.
-let version : String = "0.2.3"
+let version : String = "0.2.4"
 
 ///|
 priv suberror UsageError {

@@ -1,7 +1,6 @@
 import {
   "gaato/discord/model",
   "gaato/discord/http" @dhttp,
-  "moonbitlang/core/async",
   "moonbitlang/core/async/stdio",
   "moonbitlang/core/argparse",
   "moonbitlang/core/env",
@@ -9,6 +8,10 @@ import {
   "moonbitlang/core/json",
   "moonbitlang/core/string",
 }
+
+import {
+  "moonbitlang/core/async",
+} for "wbtest"
 
 supported_targets = "native + wasm"
 
